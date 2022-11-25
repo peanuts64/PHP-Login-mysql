@@ -2,7 +2,7 @@
 
   session_start(); /* Starts the session */
 
-  if($_SESSION['Active'] == false){ /* Redirects user to Login.php if not logged in */
+  if( (isset($_SESSION['Active']) ? $_SESSION['Active'] == false : header("location:login.php") )){ /* Redirects user to Login.php if not logged in */
     header("location:login.php");
 	  exit;
   }
