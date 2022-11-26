@@ -1,11 +1,11 @@
 # PHP-Login
 
 Simple, easy-to-use, and database-free login system.
-
+* database feature is being added
 ## How it works
 
 * The system is coded 100% in PHP (although a minimal knowledge of HTML is required).
-* The visual framework used is [Bootstrap](http://getbootstrap.com).
+* (No longer used in this repo)The visual framework used is [Bootstrap](http://getbootstrap.com).
 * There are four main pages: `login.php` shows the login form, `index.php` the default password-protected area, `logout.php` simply ends the session and `config.php` stores the user's information.
 
 ## How to use it
@@ -22,14 +22,13 @@ Simple, easy-to-use, and database-free login system.
 ```php
 <?php
   session_start(); /* Starts the session */
-
   if( (isset($_SESSION['Active']) ? $_SESSION['Active'] == false : header("location:login.php") )){ /* Redirects user to Login.php if not logged in */
     header("location:login.php");
           exit;
   }
 
 ```
-###### ORIGINAL
+###### ORIGINAL Not supported in php 8
 ```php
 <?php
   session_start(); /* Starts the session */
