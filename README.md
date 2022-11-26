@@ -6,7 +6,7 @@ Simple, easy-to-use, and database-free login system.
 
 * The system is coded 100% in PHP (although a minimal knowledge of HTML is required).
 * (No longer used in this repo)The visual framework used is [Bootstrap](http://getbootstrap.com).
-* There are four main pages: `login.php` shows the login form, `index.php` the default password-protected area, `logout.php` simply ends the session and `config.php` stores the user's information.
+* There are four main pages: `login.php` shows the login form, `index.php` the default password-protected area, `logout.php` simply ends the session and `includes/dbh.inc.php` stores the user's information.
 
 ## How to use it
 
