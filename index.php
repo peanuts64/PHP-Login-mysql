@@ -52,7 +52,4 @@ $html =	$format->HTML($html);
 #PHP 8 headers(); and redirect logic should be handled before anything is echo(ed); to the page.
 #set all of the html to a string and echo the whole string at once
 $page->display_page($title, $page->tag_wrap('style', $page->css), $html);
-
 ?>
-
-

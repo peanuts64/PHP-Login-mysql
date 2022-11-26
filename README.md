@@ -1,7 +1,7 @@
 # PHP-Login
 
 Simple, easy-to-use, and database-free login system.
-* database feature is being added
+* database feature is optional
 ## How it works
 
 * The system is coded 100% in PHP (although a minimal knowledge of HTML is required).
@@ -12,7 +12,7 @@ Simple, easy-to-use, and database-free login system.
 
 1. Download the source files to your computer.
 2. Open `includes/dbh.inc.php` with your favorite text editor (I suggest you use [Atom](https://atom.io)) and find the variables `$Username` and `$Password`.
-3. Change the username and password (note that you have to use the salted version of your password.
+3. Change the username and password (note that you have to salted version of your password when saved in DB.
 4. Save the files, upload them to your webserver and give it a try.
 
 ###### EXTRA:
