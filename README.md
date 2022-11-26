@@ -29,7 +29,7 @@ Simple, easy-to-use, and database-free login system.
 ?>
 ```
 
-## Authors
+## Original Authors
 
 * **Mario Font** - *Whole project* - [GitHub](https://github.com/mariofont)
 * **Calebrw** - *Security fixes* - [GitHub](https://github.com/Calebrw)
