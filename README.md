@@ -11,7 +11,7 @@ Simple, easy-to-use, and database-free login system.
 ## How to use it
 
 1. Download the source files to your computer.
-2. Open `config.php` with your favorite text editor (I suggest you use [Atom](https://atom.io)) and find the variables `$Username` and `$Password`.
+2. Open `includes/dbh.inc.php` with your favorite text editor (I suggest you use [Atom](https://atom.io)) and find the variables `$Username` and `$Password`.
 3. Change the username and password (note that you have to use the salted version of your password.
 4. Save the files, upload them to your webserver and give it a try.
 
