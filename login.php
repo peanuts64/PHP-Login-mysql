@@ -2,64 +2,34 @@
 require_once ('config.php'); // For storing username and password.
 session_start();
         /* Check if login form has been submitted */
-        if(isset($_POST['Submit'])){
-		$Password =  password_hash($_POST['Password'], PASSWORD_DEFAULT);
-            // Rudimentary hash check
-            $result = password_verify($_POST['Password'], $Password);
-#		echo password_hash($_POST['Password'], PASSWORD_DEFAULT);
-            /* Check if form's username and password matches */
-            if( ($_POST['Username'] == $Username) && ($result === true) ) {
+##########################################################################
+# index9.php
+########################################################################
+$id = "";
+$title = 'log in';
+include 'includes/dom.inc.php';
+include 'includes/dbh.inc.php';
+include 'includes/template.inc.php';
+include 'includes/format.php';
+include 'includes/login.inc.php';
+$page = new Template();
+$format = new Format();
+$login = new Login();
+$form_inputs = array(
+	'Username' => 'text', 
+	'Password' => 'password' 
+	);
+$page->form_new_list($form_inputs);
+$body = $page->form;
+$body .= ($page->input_flag == 'TRUE' ? $login->validate_login($page->post_data_inputs, $page->input_flag) : 'Please fill out the form');
+$page->nav_bar_links('index.php'  , 'Home');
+$page->nav_bar_drop_links_get('Nav', $page->nav_page_locations);
+$html = $page->tag_wrap('ul', $page->nav_bar_links);
+$html .= $body;
+$html = $page->tag_class_wrap('table', 'cellpadding="0" cellspacking="0"',     $html);
+$html = $page->tag_class_wrap('div', 'class="invoice-box"', $html);
+$html =	$format->HTML($html);
+$page->display_page($title, $page->tag_wrap('style', $page->css), $html);
+(isset($page->post_data_inputs) ? print_r($page->post_data_inputs) : '' );
+echo $page->input_flag;
 
-                /* Success: Set session variables and redirect to protected page */
-                $_SESSION['Username'] = $Username;
-                $_SESSION['Active'] = true;
-		#echo "thanks for logging in";
-                header("location:index.php");
-                exit;
-	    }            } 
-                ?>
-<!-- HTML code for Bootstrap framework and form design -->
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/signin.css">
-    <title>Sign in</title>
-</head>
-<body>
-<div class="container">
-    <form action="" method="post" name="Login_Form" class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputUsername" class="sr-only">Username</label>
-        <input name="Username" type="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input name="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button name="Submit" value="Login" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-
-                <!-- Show an error alert -->
-                &nbsp;
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Warning!</strong> Incorrect information.
-                </div>
-            
-
-    </form>
-</div>
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-</body>
-</html>
