@@ -1,30 +1,29 @@
 <?php
 Class Login extends Dbh{
 
-
 public function validate_login($data, $flag = false ){
-#	$Username = 'Steve';
+#query DB for submitted username while garbbing associated password
 	$quered = $this->get_user($data['Username']);
-	$Password =  password_hash($data['Password'], PASSWORD_DEFAULT);
-        // Rudimentary hash check
+// Rudimentary hash check compare submitted password to DB password
         $result = password_verify($data['Password'], $quered['Password_hash']);
-#		echo password_hash($_POST['Password'], PASSWORD_DEFAULT);
-            /* Check if form's username and password matches */
+/* Check if form's username and password matches */
         if( ($data['Username'] == $quered['User_name']) && ($result === true) ) {
-                /* Success: Set session variables and redirect to protected page */
+/* Success: Set session variables and redirect to protected page */
                 $_SESSION['Username'] = $quered['User_name'];
                 $_SESSION['Active'] = true;
-		#echo "thanks for logging in";
+#redirect to index page
                 header("location:index.php");
                 exit;
-	}   
-} 
+	}
+}
+#
 protected function get_user($User){
+#if database is setup, then the script will qurey credintials from database
 	try{
         $mysqli = $this->connect();
         $sql = "SELECT * FROM `Users` WHERE `User_Name` = ? ORDER BY `id` DESC;";
         $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param("s", $User);
+	$stmt->bind_param("s", $User);
         $stmt->execute();
         $result = $stmt->get_result();
         $numRows = $result->num_rows;
@@ -34,12 +33,17 @@ protected function get_user($User){
                 }
         return $data;
         }
-	} catch(Exception $e){
-$creds = $this->dump_protected_values();
-$data['User_name'] = $creds['User_name'];
-$data['Password_hash'] = $creds['Password_hash'];
-		return $data;
-	
+	} 
+	#if no database exists and login fails, this code will use
+	#the user name and password from the dbh.inc.php 
+	#not sure how secure this is.	
+	catch(Exception $e){
+# delete or comment this line of code out if using a database		
+	$creds = $this->dump_protected_values();
+	$data['User_name'] = $creds['User_name'];
+	$data['Password_hash'] = $creds['Password_hash'];
+	return $data;
+#
 	}
 }
 
@@ -49,5 +53,5 @@ $data['Password_hash'] = $creds['Password_hash'];
 
 
 
-
+#END OF CLASS
 }
