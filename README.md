@@ -18,7 +18,18 @@ Simple, easy-to-use, and database-free login system.
 ###### EXTRA:
 
 * If you want to password-protect any page, just add this snippet of code at the beginning of it:
+###### NEW:
+```php
+<?php
+  session_start(); /* Starts the session */
 
+  if( (isset($_SESSION['Active']) ? $_SESSION['Active'] == false : header("location:login.php") )){ /* Redirects user to Login.php if not logged in */
+    header("location:login.php");
+          exit;
+  }
+
+```
+###### ORIGINAL
 ```php
 <?php
   session_start(); /* Starts the session */
