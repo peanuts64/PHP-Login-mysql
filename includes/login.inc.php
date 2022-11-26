@@ -1,20 +1,23 @@
 <?php
 Class Login extends Dbh{
-
-public function validate_login($data, $flag = false ){
-#query DB for submitted username while garbbing associated password
-	$quered = $this->get_user($data['Username']);
-// Rudimentary hash check compare submitted password to DB password
-        $result = password_verify($data['Password'], $quered['Password_hash']);
-/* Check if form's username and password matches */
-        if( ($data['Username'] == $quered['User_name']) && ($result === true) ) {
+protected function logins_url_redirect($user){
 /* Success: Set session variables and redirect to protected page */
-                $_SESSION['Username'] = $quered['User_name'];
+                $_SESSION['Username'] = $user;
                 $_SESSION['Active'] = true;
 #redirect to index page
                 header("location:index.php");
                 exit;
-	}
+}
+
+public function validate_login($data, $flag = false ){
+#query DB for submitted username while garbbing associated password
+	$quered = $this->get_user($data['Username']);
+	if($quered != false){
+// Rudimentary hash check compare submitted password to DB password
+$this->Err['Password'] = (password_verify($data['Password'], $quered['Password_hash']) ? $this->logins_url_redirect($data['Username']) : 'Incorrect Password');
+	return $this->Err['Password'];
+/* Check if form's username and password matches */
+	} else { return 'User Name Not Found'; }
 }
 #
 protected function get_user($User){
@@ -32,7 +35,7 @@ protected function get_user($User){
                         $data[] = $row;
                 }
         return $data;
-        }
+        }else{ return false;}
 	} 
 	#if no database exists and login fails, this code will use
 	#the user name and password from the dbh.inc.php 
@@ -42,7 +45,7 @@ protected function get_user($User){
 	$creds = $this->dump_protected_values();
 	$data['User_name'] = $creds['User_name'];
 	$data['Password_hash'] = $creds['Password_hash'];
-	return $data;
+	return ($User == $data['User_name'] ? $data : false);
 #
 	}
 }

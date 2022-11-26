@@ -1,7 +1,7 @@
 # PHP-Login
 
 Simple, easy-to-use, and database-free login system.
-* database feature is optional
+* database feature is optiona
 ## How it works
 
 * The system is coded 100% in PHP (although a minimal knowledge of HTML is required).
