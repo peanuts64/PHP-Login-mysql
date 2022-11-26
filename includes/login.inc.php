@@ -14,7 +14,8 @@ public function validate_login($data, $flag = false ){
 	$quered = $this->get_user($data['Username']);
 	if($quered != false){
 // Rudimentary hash check compare submitted password to DB password
-$this->Err['Password'] = (password_verify($data['Password'], $quered['Password_hash']) ? $this->logins_url_redirect($data['Username']) : 'Incorrect Password');
+$this->Err['Password'] = (password_verify($data['Password'], $quered[0]['Password_hash']) ? $this->logins_url_redirect($data['Username']) : 'Incorrect Password');
+	echo password_hash($data['Password'], PASSWORD_DEFAULT );
 	return $this->Err['Password'];
 /* Check if form's username and password matches */
 	} else { return 'User Name Not Found'; }
@@ -43,9 +44,9 @@ protected function get_user($User){
 	catch(Exception $e){
 # delete or comment this line of code out if using a database		
 	$creds = $this->dump_protected_values();
-	$data['User_name'] = $creds['User_name'];
-	$data['Password_hash'] = $creds['Password_hash'];
-	return ($User == $data['User_name'] ? $data : false);
+	$data[0]['User_name'] = $creds['User_name'];
+	$data[0]['Password_hash'] = $creds['Password_hash'];
+	return ($User == $data[0]['User_name'] ? $data : false);
 #
 	}
 }

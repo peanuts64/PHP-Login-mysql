@@ -9,8 +9,8 @@ private $dbname;
 protected function set_credientials(){
 	$this->servername = "127.0.0.1";
 	$this->username = "admin";
-	$this->password = "password";
-	$this->dbname = "db_usr";
+	$this->password = "taco";
+	$this->dbname = "asatech";
 #        $this->servername = "localhost";
 #        $this->username = "";
 #        $this->password = "";
